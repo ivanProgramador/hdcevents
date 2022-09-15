@@ -17,3 +17,39 @@ Rotas
    Route::get('/', function () {
     return view('welcome');
     });
+
+ Blade
+
+    O blade é uma template engine reponsavel por rederizar as views isso evita anecessidade de escrever
+    php puro para renderizar elementos html. Ele epermite a redenrização condicional de elemntos por exemplo.
+    no caso 10 e emenor que 20 então com a condição e falsa ele não vai mostrar o paragrafo.
+
+    @if(10>20)
+     <p>A condição e verdadeira</p>
+    @endif 
+
+    Enviando dados para a view.
+    a função view recebe 2 parametros 1 eo nome da view que ela vai renderizar e o segundo é um array
+    contando os dados que eu desejo enviar pra ela, o blade não vê as variveis e sim as chaves desse array
+    então se eu queiser mandar seja lá oque for para essa view eu preciso criar uma variavel atriburi a ela
+    o valor que eu quero criar uma chave e colocar ela dentro do array como exemplo dessa variavel $nome    
+
+    Route::get('/', function () {
+
+    $nome = "ivan";
+
+    return view('welcome',['nome' = $nome ]);
+    
+    }); 
+
+
+    mostrando o valor na view 
+
+     <p>  O valor da variavel nome e : {{ $nome }} </p>
+
+    para mandar mais de um valor e so adicionar mais um indice ao array
+
+
+
+
+

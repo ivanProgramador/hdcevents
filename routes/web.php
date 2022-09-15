@@ -14,7 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+
+    $nome = "ivan";
+
+    return view('welcome',['nome'=>$nome]);
+
 });
 
 Route::get('/products', function () {
