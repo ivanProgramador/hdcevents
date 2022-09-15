@@ -1,0 +1,19 @@
+comando apara instalar usando o composer 
+
+composer create-project laravel/laravel hdcevents 
+
+Rotas 
+
+  Na pasta routes tem o arquivo web.php esse arquivo possui as funções de rotas 
+  de uma forma basica a classe Route tem um metodo get que recebe 2 parametros 
+  o primeiro e a url eo segundo é um função que vai retornar a view de volta 
+  para o cliente. 
+
+  Esse metodo procura as views a serem retornadas dentro do caminho resources/views
+  então toda e qualquer rota que vá ser criada no porhjeto tem que estar lá, as rotas
+  são o começo eo final da aplicação, porque o cliente reuisita e a rota retorna,
+  então compreender esse fluxo é muito importante.
+  
+   Route::get('/', function () {
+    return view('welcome');
+    });
