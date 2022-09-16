@@ -29,6 +29,19 @@
      @endif
      <br>
      O valor da varivel nome e : {{ $nome }} 
+     <br>
+
+     @for($i = 0 ; $i < count($arr); $i++ )
+
+      <p>{{ $arr[$i] }} - {{ $i }}</p>
+
+      @if ($i == 2)
+       
+       <p> i  é igual a 2 </p>
+          
+      @endif
+         
+     @endfor
 
 
        

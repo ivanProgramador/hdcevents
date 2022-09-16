@@ -49,6 +49,69 @@ Rotas
 
     para mandar mais de um valor e so adicionar mais um indice ao array
 
+    Executando um loop usando blade 
+
+    nesse caso primeiro tem que adcionar um array dentro da função get la na rota 
+
+               Route::get('/', function () {
+
+               $nome = "ivan";
+
+               $arr = [1,2,3,4,5,6];
+
+               return view('welcome',[
+                  'nome' => $nome,
+                  'arr'  => $arr
+               ]);
+
+            });
+   para fazer o blade ler e mostrar cada valor contido nos indices, no cadigo abaixo ele usa um for
+   para percorrer os indices e mostrar oa conteudo deles e do lado mostrar qual eo numero do indice 
+   durante o loop eu adicionai um if que verifica em que momento o valor atinge 2 e quando ele atingir
+   vai mostrar uma mensagem avisando que i é = 2 esse codigo é feito em blade na interface.
+
+    @for($i = 0 ; $i < count($arr); $i++ )
+
+      <p>{{ $arr[$i] }} - {{ $i }}</p>
+
+      @if ($i == 2)
+       
+       <p> i  é igual a 2 </p>
+          
+      @endif
+         
+     @endfor
+
+
+     executando php puro na interface
+
+      @php
+         
+         // o codigo php fica aqui
+       
+      @endphp
+
+
+      Comnatarios usando o blade não saão renderizados nas ferrmantas de desenmvolvedor dos navegadores 
+      para usar o blade para copmentar o codigo 
+
+      {{ -- Comentario aqui   -- }}
+
+
+      usando um foreach no blade  abaixo eu uso a variavel index que ´pe uma palavra reservada 
+      digamos se cada inidice desse array tiver um objeto eu posso usar ela pra pegar so o dado
+      que eu preciso  mostrar 
+
+      @foreach($nomes as nome)
+         
+         <p> {{ $loop -> index }}</p>
+         <p>{{$nome}}</p>
+
+       
+      @endforeach
+
+     
+
 
 
 

@@ -17,7 +17,12 @@ Route::get('/', function () {
 
     $nome = "ivan";
 
-    return view('welcome',['nome'=>$nome]);
+    $arr = [1,2,3,4,5,6];
+
+    return view('welcome',[
+        'nome' => $nome,
+        'arr'  => $arr
+    ]);
 
 });
 
