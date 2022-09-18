@@ -1,45 +1,36 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+@extends('layouts.main')
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+ @section('title','HDC Events')
+  
+   @section('content')
 
-        <!-- Styles -->
+        <h1>Algum titulo</h1>
+        <img src="/img/banner.jpg" alt="">
 
-        <link rel="stylesheet" href="/css/styles.css">
+        @if (100>20)
 
-        <script src="/js/script.js"></script>
-        
-    </head>
-    <body class="antialiased">
+          <p>A condição e verdadeira</p>
+            
+        @endif
+        <br>
+        O valor da varivel nome e : {{ $nome }} 
+        <br>
 
-     @if (100>20)
+        @for($i = 0 ; $i < count($arr); $i++ )
 
-       <p>A condição e verdadeira</p>
-         
-     @endif
-     <br>
-     O valor da varivel nome e : {{ $nome }} 
-     <br>
+          <p>{{ $arr[$i] }} - {{ $i }}</p>
 
-     @for($i = 0 ; $i < count($arr); $i++ )
-
-      <p>{{ $arr[$i] }} - {{ $i }}</p>
-
-      @if ($i == 2)
-       
-       <p> i  é igual a 2 </p>
+          @if ($i == 2)
           
-      @endif
+          <p> i  é igual a 2 </p>
+              
+          @endif
          
      @endfor
 
+    @endsection()
+
 
        
-    </body>
-</html>
+ 

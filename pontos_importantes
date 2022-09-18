@@ -110,6 +110,54 @@ Rotas
        
       @endforeach
 
+
+Adicionando arquivos estaticos 
+
+   Os arquivos estaticos do porjeto como css ,js, imagens devem ficar dentro da pasta public
+
+Layouts usando blade 
+
+   Criar um layout permite o reaproveitamento de codigo,da pra usar o mesmo header e footer em varias paginas 
+   todos os layouts dentro doi laravel por padra tem que ter essa nomenclatura 
+   NomeDoLayout . blade . php  para que o blade saiba que deve carregar ele na pagina  
+
+   para separar os layouts do projetos criei a pasta layouts na pasta view
+
+   dentro dele eu coloquei o layout principal que vai servir de base para as outras paginas
+
+   esse layout já tem um footer padrão 
+
+   O blade permite que eu faça um adivisão desse Layout atraves de cessoes usando a diretiva 
+   @yield('nome_da_cessão') no layout main eu crei duas cessoes 
+  
+   @yield('title')   -> coloquei no title porque ela vai repsentar o titulo que muda de forma dinamica 
+   @yield('content') -> coloquei no body porque ela vai ter o conteudo   
+
+   Para fazer essas varivei funcionarem, no layout que vai receber essas configurações 
+
+   1 - coloque essa diretiva no topo da pagina para apontar para o layout main que foi criado @extends('layouts.main)
+
+   2 - coloque a adiretiva @section('title','titulo_atual_da_pagina') que vai representar o titulo
+
+   3 - coloque @section('content) para iniciar a cessão de conteudo, a variavel content foi definida la no main
+
+   4 - cloque @endsection apara finalizar a cessão de conteudo  
+
+   depois apague as tags body, header, footer(esses elementos ja estão representados pelas variaveis)
+   e deixe so conteudo da pagina, devido as configurações o footer vai ser renderizado de forma automatica
+   e o header tambem 
+
+
+
+
+
+
+
+
+   
+    
+
+
      
 
 
