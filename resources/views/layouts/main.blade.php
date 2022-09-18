@@ -42,11 +42,11 @@
              <ul class="navbar-nav">
                 
                  <li class="naviten">
-                   <a href="" class="nav-link">Eventos</a>
+                   <a href="/" class="nav-link">Eventos</a>
                  </li>
 
                  <li class="naviten">
-                   <a href="" class="nav-link">Criar eventos</a>
+                   <a href="/events/create" class="nav-link">Criar eventos</a>
                  </li>
 
                  <li class="naviten">
@@ -55,6 +55,14 @@
 
                  <li class="naviten">
                     <a href="" class="nav-link">Cadastrar</a>
+                 </li>
+
+                 <li class="naviten">
+                    <a href="/contatos" class="nav-link">Contatos</a>
+                 </li>
+
+                 <li class="naviten">
+                    <a href="/produtos" class="nav-link">Produtos</a>
                  </li>
 
                  
@@ -76,5 +84,8 @@
        <footer>
            <p>HDC Events &copy; 2020</p>
        </footer>
+
+       <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+       <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     </body>
 </html>

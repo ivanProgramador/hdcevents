@@ -13,18 +13,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/* importando o controller */
 
-    $nome = "ivan";
+use App\Http\Controllers\EventController;
 
-    $arr = [1,2,3,4,5,6];
+Route::get('/',[ EventController::class, 'index']);
 
-    return view('welcome',[
-        'nome' => $nome,
-        'arr'  => $arr
-    ]);
+Route::get('/events/create',[ EventController::class, 'create']);
 
-});
+Route::get('/contatos',[ EventController::class, 'contatos']);
+
+Route::get('/produtos',[ EventController::class, 'produtos']);
+
+
+
 
 
 Route::get('/product/{id?}', function ($id = 0) {

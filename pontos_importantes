@@ -194,6 +194,105 @@ Layouts usando blade
 
 
          --------------------------------------------------------------------------------------
+
+
+ CONTROLLERS
+  
+       Os controllers são responsaveis pela parte logica de toda a aplicação. o alaravel possui uma classe controller 
+       e todo o controller criado tem que herdar ela para que funcione de forma correta.Por padrão o nome de um copntroller 
+       e no singular se estou crindo um sistema de eventos então o controller e EventController. 
+
+       comando para egrar um controller 
+
+        php artisan make:controller EventController 
+       
+       controller gerado pelo comando 
+
+       <?php
+
+            namespace App\Http\Controllers;
+
+            use Illuminate\Http\Request;
+
+            class EventController extends Controller
+            {
+               //
+            }
+
+      ----------------------------------------------------------
+
+      dentro dele eu crio a função publica index()  um ponto importante a ser abordado e que  
+      NUNCA a logica deve ser posta dentro das rotas elas sempre são colocadas dentro do controller 
+      eu iniciei colocando dentros das rotas para fins de testes.
+
+      nesse caso toda a parte de envio de paremetros, tratamento de parametros recebidos, todos devem ser postos dentro 
+      de uma função no controller e ele fica assim 
+
+
+      <?php
+
+            namespace App\Http\Controllers;
+
+            use Illuminate\Http\Request;
+
+            class EventController extends Controller
+            {
+               public function index(){
+
+                  $nome = "ivan";
+
+                  $arr = [1,2,3,4,5,6];
+               
+                  return view('welcome',[
+                        'nome' => $nome,
+                        'arr'  => $arr
+                  ]);
+
+
+               }
+            } 
+
+     --------------------------------------------------------------------------------------------------
+
+     como a rota vai saber que tem que acessar a função index() la dentro do controller 
+
+     1 - importar ele pra dentro do arquivo web.php
+
+      use App\Http\Controllers\EventController;
+   
+     2 - passar ele como segundo parametro da rota como se fosse um array,
+         no codigo abaixo eu digo que a classe EventController tem a função index 
+         e tudo oque vier da rota / vai ser mandado pra lá
+
+      Route::get('/',[ EventController::class, 'index']);
+
+    ------------------------------------------------------------
+
+    Rota create segue o mesmo padrão
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+          
     
 
 
