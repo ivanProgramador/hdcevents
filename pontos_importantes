@@ -147,6 +147,60 @@ Layouts usando blade
    e deixe so conteudo da pagina, devido as configurações o footer vai ser renderizado de forma automatica
    e o header tambem 
 
+   --------------------------------------------------------------------------
+
+   vou instalar no layout principal o google fonts e o bootstrap assim ele ja extende pára todas paginas tambem
+
+   -----------------------------------------------------------------------------------------------------------------
+
+   PASSANDO PARAMETROS ATRAVES DAS ROTAS 
+
+    Enviar aparametros atraves das rotas é algo util para moldar o comportamento que a pagina vei ter baseado no dado
+    de requisição que ela esta fazendo. No caso abaixo a rota product vai receber um id de um produto e eu vou pegar o valor dele
+    e jogar dentro do array. 
+
+    Route::get('/product/{id}', function ($id) {
+
+
+     return view('product',['id' => $id] );
+    });
+
+    No caso eu coloquei um fluxo de decisão dentro da pagina baseada no id recebido 
+    se o id for 0 o cliente chegou nessa pagina por acidente sem selecionar nenum item
+    então a pagina exibe uma mensgame pedindo que ele volte e selecione algum produto
+    se a url vier com id 1 ela mostra o porduto 1.
+
+    @if ($id == 0)
+
+       <p>Por favor selecione um produto </p>
+     
+       <p>O id recebido e: {{ $id }}</p>
+
+       @elseif ($id == 1)
+
+            <ul>
+                <li>Camiseta polo branca</li>
+                <li>Preço: 69,99</li>
+            </ul>
+       @elseif ($id == 2)
+
+            <ul>
+                <li>Camiseta polo Azul</li>
+                <li>Preço: 69,99</li>
+            </ul>
+                
+                    
+         @endif
+
+
+         --------------------------------------------------------------------------------------
+    
+
+
+
+
+
+
 
 
 

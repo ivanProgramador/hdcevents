@@ -25,6 +25,51 @@
     </head>
     <body class="antialiased">
 
+      <header>
+      
+         <nav class="navbar navbar-expand navbar-lg navbar-light">
+         
+           <div class="collapse navbar-collapse" id="navbar">
+
+             <a href="/" class="navbar-brand">
+
+
+                <img src="/img/hdcevents_logo.svg" alt="HDC Events">
+             
+                
+             </a>
+
+             <ul class="navbar-nav">
+                
+                 <li class="naviten">
+                   <a href="" class="nav-link">Eventos</a>
+                 </li>
+
+                 <li class="naviten">
+                   <a href="" class="nav-link">Criar eventos</a>
+                 </li>
+
+                 <li class="naviten">
+                   <a href="" class="nav-link">Entrar</a>
+                 </li>
+
+                 <li class="naviten">
+                    <a href="" class="nav-link">Cadastrar</a>
+                 </li>
+
+                 
+             
+             
+             </ul>
+           
+           
+           </div>
+         
+         </nav>
+      
+      
+      </header>
+
       @yield('content')
        
 

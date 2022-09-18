@@ -26,9 +26,17 @@ Route::get('/', function () {
 
 });
 
+
+Route::get('/product/{id?}', function ($id = 0) {
+    
+    return view('product',['id' => $id] );
+});
+
+
 Route::get('/products', function () {
     return view('products');
 });
+
 
 Route::get('/contacts', function () {
     return view('contacts');
