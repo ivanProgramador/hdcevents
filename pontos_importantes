@@ -281,7 +281,9 @@ CONECTANDO A ABSES DE DADOS
    
    O laravel possui um arquivo chamado .env  esse arquivo guarda as configurações do banco 
    oque deve ser alterado nele são somente tipo do banco , porta se necessario usuario e 
-   senha e o nome da base de dados.
+   senha e o nome da base de dados.na configuração abaixo eu estou pontando por meu banco 
+   local, porquestões de segurança quando o porjeto é versionado esse arquivo não mantem
+   as configurações. 
 
       DB_CONNECTION=mysql
       DB_HOST=127.0.0.1
@@ -289,6 +291,138 @@ CONECTANDO A ABSES DE DADOS
       DB_DATABASE=hdceventscurso
       DB_USERNAME=root
       DB_PASSWORD=  
+   
+   O laravel tem um comando inicial para criar tabelas para armazenar usuarios , trocar passwords
+   essa tabelas são criadas usando o comando 
+
+   php artisan migrate 
+
+   MIGRATIONS 
+     São classes que são geradas usando a estrategia ORM que mapeia as tabelas como se a entidade fosse uma classe 
+     e os atributos fossem as colunas. o alaravel ja vem com as algumas migrations criadas mas essas migrations são
+     pre-definidas para criar na abase de dados as tabelas reponsaveis pelo cadastro de usuarios da aplicação.
+
+     criando uma tabela no banco usando uma migration primeiro informamos oque é pra fazer 'create' depois o nome da tabela 'produtos' 
+     e depois oque ela é 'table' esse comado vai criar uma classe onde produtos vai ser a classe e podemos adicionar os atributos nela 
+
+     
+
+
+     php artisan make: migration create_produtos_table 
+
+     comado pra ver se as migration foram rodadas ou não 
+
+     php artisan migrate:status 
+
+     comando apa executar as migrations pendentes de forma geral  
+
+     php artisan migrate 
+
+     quando é necessario atualizar uma tabela com novos campos o comando usado é:
+
+     php artisan migrate:fresh
+
+     porem tem que ter cuidado porque ele deleta todas as tabelas e depois refaz para atualizar se tiverem dados eles seram pedidos.
+
+     mas existem comendo onde se pode alterar a estrutura de uma tabela sem perder dados 
+
+     para adicionar um campo a um tabela de forma incrementalç sem perder dados usamos o comando,
+     o cmando abaixo e bem claro em ralaçãop ao oque tem que fazer. "adicione categoria a tabela produtos"
+
+     php artisan make:migration add_category_to_products_table 
+
+     criando uma tabela 
+
+     php artisan make:migration create_products_table 
+
+     depois de adicionar os campo e fazer as modificações necessarias para rodas a migration 
+
+      php artisan migrate
+
+     para atualizar a estrutura da tabela adicionando um campo sem perder dados 
+
+       php artisan make:migration add_category_to_products_table 
+
+      depois de ir na migration adiccionar esse campo nos dois metodos
+
+       php artisan migrate
+
+       "todos os campos que forma adicionados dentro de uma migration tem que se adicionados nos dois metodos
+        para que a migration tanto posssa adicionar quanto destruir os campos quando necessario o metodo up 
+        serve para criar e o metodo down para destruir as colunas então as colunas devem serd declaradas nos dois "
+
+
+        no metodo up fica dessa forma
+
+           public function up()
+    {
+        Schema::create('products', function (Blueprint $table) {
+            $table->id();
+            $table->string('name',100);
+            $table->integer('qty');
+            $table->string('description',100);
+            $table->timestamps();
+        });
+    }
+
+
+
+
+
+
+        no metodo down fica dessa forma 
+
+        public function down()
+    {
+        Schema::dropIfExists('products');
+
+        $table->dropColumn('name',100);
+        $table->dropColumn('qty');
+        $table->dropColumn('description',100);
+
+
+    }
+
+
+    ----------------------------------------------------------------------------
+
+    
+
+       
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+     
+
+     
+     
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+   
 
 
       
