@@ -382,6 +382,48 @@ CONECTANDO A ABSES DE DADOS
 
 
     }
+   
+
+   Depois que uma migration e geradas e executada a tabela e gerada na base de dados a porxima e tapa consiste em resgatar 
+   os dados presentes dentro dessa base de dados. isso aocntece traves dos models criando um model ele tem o nome no singular
+   porque todos os objetos gerados apartir da classe Event serão os events no plural como se o model se comportasse como uma 
+   coleção.
+
+   php artisan make:model Event
+
+   Resgatando os dados do banco 
+
+   1 - vai no EventController app/http/Controllers/EventController.php chama o model para dentro do arquivo usando a diretiva 
+
+      use App/Models/Event;
+
+   2 - quando você chama a classe model para dentro do controller da pra usar os metodos dela pra trazer tudo usamos o metodo all();
+       e atribuimos o valor contido nele a uma variavel qua seria a $events, como são varios eventos temos que distribuir em um array 
+       que seria o segundo parametro do metodo view(); 
+        
+      
+
+      $events = Event::all();
+
+       return view('welcome' , ['events' => $events ]);
+
+   3 - la na view usando a sintaxe do blade faz um foreach  assim voce tera todos os eventos da base de dados listados na interface
+       no caso abaixo eu to pegando as propriedades titulo e descrição  
+        
+      @foreach($events as $event)
+
+        <p>{{$event->title}} -- {{$event->description}}</p>       
+        
+      @endforeach
+
+
+
+
+
+
+
+
+
 
 
     ----------------------------------------------------------------------------
