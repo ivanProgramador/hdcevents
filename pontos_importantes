@@ -458,6 +458,58 @@ CONECTANDO A ABSES DE DADOS
        o blade possui um sistema de proteção chamado csrf absolutamente todo formulario que for se comeunicar com
        a base de dados precisa ter a diretiva @csrf dentro da tag form se não ele não envia os dados.
 
+      com essas configurações ele insere os dados na base de dados sem o uso da sintaxe sql 
+
+    FLASH MESSAGES 
+       As flash messages servem para avisar ao cliente que uma ação foi concluida mensagens do tipo "salvo com sucesso" são uteis 
+       para que o cliente saiba que de fato a aplicação atendeu a sua solicitação.
+
+    criando flash messages no laravel.
+
+       primeiro essa mensagem, deve ser adicionada no controller dentro da função que vai disparar ela, no caso eu desejo que  
+       após o cliente inserir um novo eneto no sistema ele seja redirecionado para a home e receba o aviso de que o evento foi 
+       incluso com sucesso, o processo de salvar um noco evento no sistema esta sob a responsabilidade da função store então 
+       a diretiva deve ser inclusa dentro dela dessa forma.
+
+       return redirect("/")->with('msg', 'Evento criado com sucesso !');
+
+       No codigo acima alem de retornar o redirecionamento ele usa o metodo with para incluir mais alguma coisa no retorno 
+       e essa alguma coisa tem que ter o identificador eo conteudo, identificador msg conteudo a mensagem de fato. 
+
+       O segundo passo tem que ir na view create e criar essa estrutura, dentro das tags html exite um teste de cessão  que vai verificar se  
+       existe alguma mensagem na cessão que deva ser entregue, se sim ele mostra a mensdagem e segue para exibir o resto do layout senão ele so exibe o layout mesmo
+
+                     <main>
+                  
+                        <div class="container-fluid">
+                           
+                           <div class="row">
+
+                           @if(session('msg'))
+
+                           <p class="msg">{{ session('msg') }} </p>
+                           
+                           @endif
+                           @yield('content')
+
+                           
+                           
+                           </div>
+                        
+                        </div>
+                  
+                  
+                  </main>  
+         
+
+
+
+
+    
+
+
+     
+
 
         
 
