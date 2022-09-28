@@ -417,6 +417,54 @@ CONECTANDO A ABSES DE DADOS
       @endforeach
 
 
+      ADICIONANDO REGISTROS NO BANCO DE DADOS 
+
+        A primeira parte consiste em fazer o formulario nos atributos de action coloca-se a rota de criar eventos "/create"
+        e no atributo method se coloca um POST, dentro da tag form todos os elementos e divs devem perrtencer a classe form-control
+        para que os framework bootstrap organize eles.
+
+        No aruivo web.php tem que criar uma rota apontando para o metodo store que vai chamar esse metodo la dentro do controlller
+
+        Route::post('/events',[ EventController::class, 'store']);
+
+        depois de fazer isso tem que criar a função store la dentro do controller essa função recebe um parametro chamado $request 
+        o paramtro request pelo oque eu entendi trata-se de um objeto dinamico que traz os atributos do objeto dentro dele, assim
+        eu crio um objeto da classe Event e seleciono o tributo title e dentro dele eu jogo o valor do title vindo da request 
+        como se fosse um espelho. 
+
+        A função save é usada pra salavar no banco de dados como o meu objeto esta baseado no model que ja tem essa função 
+        e só usar.
+
+        deposi de salvar os dados eu redireciono o cliente para página home   
+      
+      
+      public function store(Request $request){
+       
+      /* instanciando um objeto da com base na classe do model pra poder puxar os atributos*/
+        $event = new Event;
+
+        $event->title = $request->title;
+        $event->city  = $request->city;
+        $event->private = $request->private;
+        $event->description = $request->description;
+
+        $event->save();
+
+        return redirect("/");
+        
+     }
+
+     NO FORMULARIO 
+       o blade possui um sistema de proteção chamado csrf absolutamente todo formulario que for se comeunicar com
+       a base de dados precisa ter a diretiva @csrf dentro da tag form se não ele não envia os dados.
+
+
+        
+
+
+
+
+
 
 
 
