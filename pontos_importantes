@@ -556,15 +556,34 @@ CONECTANDO A ABSES DE DADOS
          então a imagem do card que repesenta um evento ao invez de ficar com uma imagem estatica vai mostrar a imhgem gerada no evento correspondente
 
            <img src="/img/{{$event->image}}" alt="{{$event->title}}">
-
-         no caso vou ter aplicar uma correção no css da pagina iniciakl que não esta quebnrando a cada 4 elementos 
-         
-
-
-
-
-
          --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      usando eloquent para visualizart os detalhes de um evento especifico
+
+      O primeiro passo começa criando uma nova rota de get la no web.php essa rota chama função show dentro do controller 
+
+      Route::get('/events/{$id}',[ EventController::class, 'show']);
+
+      No caso apra enviar esse id que vai acionar a rota tem que ir la no card colocar no link saiba mais esse link 
+      vai pegar o id do evento e mandar para a rota a rota vai colocar o id na funçãio show. a função show vai usar o id 
+      como um parametro para o metodo findOrFail() que pérnetynce a classe Event que serve para fazer uma busca pelo evento
+      dentro da base de dados e jogos os dados dele dentro da variavel $event que vai ser retornada junto com a view show
+      e la vamos pegar os dados do evento e p´reencher os elementos.   
+
+
+                  public function show($id){
+                  
+                  $event = Event::findOrFail($id);
+
+                  return view('events.show',['event' => $event]);
+
+               }
+
+
+
+
+
+
+         
 
 
 
