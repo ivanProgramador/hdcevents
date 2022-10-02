@@ -20,6 +20,7 @@ class CreateEventsTable extends Migration
             $table->text('description');
             $table->string('city');
             $table->boolean('private');
+            $table->string('image');
         });
     }
 
@@ -36,6 +37,7 @@ class CreateEventsTable extends Migration
             $table->dropColumn('description');
             $table->dropColumn('city');
             $table->dropColumn('private');
+            $table->dropColumn('image');
 
     }
 }

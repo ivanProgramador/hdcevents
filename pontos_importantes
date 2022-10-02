@@ -500,6 +500,83 @@ CONECTANDO A ABSES DE DADOS
                   
                   
                   </main>  
+         isso é sufiente para a mensagem, aparecer  
+
+         --------------------------------------------------------------------------------------------------------------
+
+         SALVANDO IIMAGENS NO BANCO DE DADOS COM O LARAVEL 
+
+         A primeira etapa consiste em criar configurações de entrada no formaluario a primeira alteração e colocar o atributo enctype
+         que informa ao sistema que esse formalario alem de mandar texto tambem vai mandar arquivos.esse atributo  e colocado no form.
+
+                  <form action="/events" method="POST" enctype="multpart/form-data">
+
+         campo responsavel por receber a imagem :
+
+                  <div class="form-group">
+                  
+                  <label for="image">Imagem do evento:</label>
+                  <input type="file" id="image" name="image" class="forma-control-file">
+            
+               
+                  </div>
+         é sepre importante lembrar no banco de dados ficam salvo o nome da imagem ou a url de localização, o arquivo de fato fica dentro,
+         de uma pásta nas dependencias do porjeto.com essas duas aletarções a view ja estara pronta, a porxima etapa e fazer a logica no controller dentro do contoller  
+         na função store a logica fica assim:
+
+
+                           /*Image upload testandop se a imagem é um arquivo valido */
+                     
+                     if($request->('image') && $request->file('image')->isValid()){
+
+                        // puxando o tributo image da request
+                        $requestImage = $request->image;
+
+                        //puxando o atributo extensão da imagem 
+                        $extension = $requestImage->extension(); 
+                        
+                        // pegando o nome do arquivo de imagem e a hora do servidor no momento do upload e gerando um 
+                        //rash md5 e concatenendo o rash com a extensão da imagem.O motivo de usar rash e pra tornar o 
+                        ///nome da imagem unico dentro do servidor 
+
+                        $imageName = md5($requestImage->getClientOriginalName().strtotime('now').".".$extension);
+
+                        //direcionando o arquivo de imagem para a pasta correta para isso eu uso uma função chamada move 
+                        //que recebe 2 parametros o path que a pasta onde vai ser salvo eo nome do arquivo que vai ser salvo  
+
+                        $requestImage->move(public_path('img/events'), $imageName);
+
+                        
+                     }
+
+
+         O proximo passo e criar uma migration que adicione o campo da imagem na tabela
+
+         O proximo passo agora e fazer com oque essa imagem escolhida pelo cliente seja presentada junto com o evento ao qual ela faz referencia 
+         então a imagem do card que repesenta um evento ao invez de ficar com uma imagem estatica vai mostrar a imhgem gerada no evento correspondente
+
+           <img src="/img/{{$event->image}}" alt="{{$event->title}}">
+
+         no caso vou ter aplicar uma correção no css da pagina iniciakl que não esta quebnrando a cada 4 elementos 
+         
+
+
+
+
+
+         --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+         
+
+
+          
+         
+
+
+
+
          
 
 

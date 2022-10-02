@@ -9,8 +9,21 @@
    <div class="col-md-6 offset-md-3" id="event-create-container">
    
       <h1>Crie o seu evento</h1>
-        <form action="/events" method="POST">
+        <form action="/events" method="POST" enctype="multipart/form-data">
          @csrf
+
+
+         <div class="form-group">
+           
+           <label for="image">Imagem do evento:</label>
+           <input type="file" id="image" name="image" class="form-control-file">
+   
+      
+          </div>
+
+
+
+
 
            <div class="form-group">
            
