@@ -579,7 +579,50 @@ CONECTANDO A ABSES DE DADOS
                }
 
 
+     -----------------------------------------------------------------------------------------------
+     usando json no laravel pra pegar itans de multipla escolha 
 
+     O primeiro passo e fazer uma migration adicionando a coluna itens na tabela events ao inves do tipo de dado 
+     ser string vai ser json dessa forma.
+
+      $table->json('items');
+
+    O segundo passo e ir no front e criar os check boxes que vão ser selecionados 
+    o terceiro e criar logica que vai receber os dados la no controller
+    pegando os itens através da request. 
+
+     $event->items = $request->items;
+
+     Mas nesse caso somente isso não basta para o laravel salvar um array na base de dados, e necessario avisara la no model 
+     que vai vir um array de itens senão ele vai tentar salvar como array, posucas mudanças são feitas dentro do model. o model 
+     nesse caso vai ficar assim: 
+
+         protected $casts = [
+
+            'items' => 'array'
+         ];
+     $casts é uma varivel interna do laravel que armazena configurações de conversão no caso acima eu estou dizendo que todos os dados 
+     que tiverem dentro de itens devem ser salvos e interpretados como array.isso ja vai ser suficinerte para salvar na base de dados como array 
+
+     IMPRIMINDO UM ARRAY NA VIEW 
+     
+     um foreach nomal do blade funciona 
+
+     ----------------------------------------------------------------------------
+
+     
+
+
+
+
+
+
+
+
+
+
+
+       
 
 
 
