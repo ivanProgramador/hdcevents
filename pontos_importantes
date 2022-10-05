@@ -606,9 +606,43 @@ CONECTANDO A ABSES DE DADOS
 
      IMPRIMINDO UM ARRAY NA VIEW 
      
-     um foreach nomal do blade funciona 
+     um foreach normal do blade funciona 
 
      ----------------------------------------------------------------------------
+
+     SALVANDO DATAS DENTRO DO LARAVEL
+
+     O tratamento de datas se inicia criandop uma migration para adicionar essa coluna na tabela de eventos 
+     depois temos que informar ao model sobre o campo date:
+
+      protected $dates = ['date'];
+
+      depois temos que crirar o campo la na view 
+
+      depois tem que ir la no controller dentro da função store e pegar o valor pela request, quando essa data
+      é salva no banco ela fica no formato norte americano mas apara oc liente ela tem que aparecer no formato normal,
+      para fazer essa correção 
+
+      1 - aciono a função date que recebe 2 parametros  
+          date('como eu quero que a data seja exibida ' , 'os dados que eu vou receber' );
+
+      2 - o primeiro parametro eu escrevo como eu quero que a adata seja mostrada , no segundo eu uso outra função 
+          strtotime() que serve para converter a string que eu estou recebendo em um dados de tempo nisso ela é reconehcida pela função date 
+          que compreende os numeros e faz a ordenação em dia mesm e ano como euy pedid no primeiro parametro.
+
+      {{ date('d/m/y',strtotime($event->date)) }}  
+
+      ----------------------------------------------------------------------------------------------------------------
+
+      
+
+
+
+
+
+
+
+
 
      
 
