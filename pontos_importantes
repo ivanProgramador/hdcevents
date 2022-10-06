@@ -634,6 +634,63 @@ CONECTANDO A ABSES DE DADOS
 
       ----------------------------------------------------------------------------------------------------------------
 
+      BUSCA DE DADOS NO LARAVEL 
+        
+        No caso desse projeto o sistema de busca não vai ter um botão buscar, o cliente vai digitar oque quer e apoertar enter 
+        então comecei ajustando as configurações do input de busca na view 
+
+                  <div id="search-container" class="col-md-12">
+
+                  <h1>Busque um evento</h1>
+
+                  <form action="/" method="GET">
+                     
+                     <input type="text" id="search" name="search" class="form-control" placeholder="procurar...">
+                  
+                  </form>   
+               </div>
+
+      A logica para a busca dentro do controller funciona assim: 
+
+      primeiro eu criei uma varivel dentro da função index, chamada search essa varivel vai receber 
+      o valor que vem da função request(); que como o nome ja diz ela vai requisitar o valor que vem
+      do input que tem o nome serach la na view nisso a variavel search ja pega oque foi digitado.
+
+      depois eu faço um teste pra saber se tem alguma coisa dentro da varivel $search usando um if-else
+      se sim eu crio a variavel $events e depois eu chamo a classe do model Events::where(); e uso o metodo
+      where.
+
+      O mtodo where recebe um array que monta a consulta  nesse caso ele vai pesquisar pelo titulo qualquer letra que seja como a letra inicial ou final 
+      contida dentro da variavel $search mas para pegar o resultado retornado nessa busca eu poreciso usar o metodo get(); que vai de fato preencher a variavel $events como o r
+      resultado da busca 
+
+          $events = Events::where(
+            [
+             ['title','like','%'.$search.'%']
+          
+            ] 
+            )->get();
+
+       alem disso eu vou mandar ela pra view tambem 
+
+         return view('welcome' , ['events' => $events, 'search' => $search ]);
+      
+
+      
+
+      
+
+      
+
+
+
+
+
+         
+
+
+      
+
       
 
 
