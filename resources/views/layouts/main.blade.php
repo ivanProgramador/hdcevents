@@ -54,11 +54,11 @@
                  </li>
 
                  <li class="naviten">
-                   <a href="" class="nav-link">Entrar</a>
+                   <a href="/login" class="nav-link">Entrar</a>
                  </li>
 
                  <li class="naviten">
-                    <a href="" class="nav-link">Cadastrar</a>
+                    <a href="/register" class="nav-link">Cadastrar</a>
                  </li>
 
                  <li class="naviten">

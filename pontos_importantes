@@ -674,6 +674,33 @@ CONECTANDO A ABSES DE DADOS
        alem disso eu vou mandar ela pra view tambem 
 
          return view('welcome' , ['events' => $events, 'search' => $search ]);
+
+
+      com isso a busca ja funciona normnalmente
+      
+      -------------------------------------------------------------------------------------------------------------
+      AUTENTICAÇÃO NO LARAVEL USANDO JETSTREAM 
+        Antes usar esse recuros de fato existe uma sequencia de comandos que devem ser executados e importante que seja nessa ordem 
+
+        1 - composer require laravel/jetstream 
+        2 - php artisan jetsream: install livewire 
+        3 - php artisan migrate 
+        4 - npm install 
+        5 - npm run dev
+
+      esses comandos em sequencia instalam uma serie de recuroro para construir o sistema de login 
+      //resovi o bucho da interface de login eliminando a diretiva @vite e colocando essas duas linhas no app.blade.php 
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <script src="{{ asset('js/app.js') }}" defer></script>
+        link solução do problema
+
+        https://stackoverflow.com/questions/73180945/jetstream-css-and-js-not-working-and-showing-viteresources-css-app-css-re
+
+        -----------------------------------------------------------------------------------------------------
+
+
+      
+        
       
 
       
