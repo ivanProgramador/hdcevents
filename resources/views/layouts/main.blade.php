@@ -52,7 +52,31 @@
                  <li class="naviten">
                    <a href="/events/create" class="nav-link">Criar eventos</a>
                  </li>
+                 
+                 @auth
 
+                 <li class="naviten">
+                   <a href="/dashboard" class="nav-link">Meus eventos</a>
+                 </li>
+
+                 <li class="naviten">
+                   <form action="/logout" method="POST">
+                      @csrf
+                      <a 
+                         href="/logout"
+                         class="nav-link"
+                         onclick="event.preventDefault(); this.closest('form').submit();"        
+                        >Sair</a>
+                   </form>
+                 </li>
+
+                   
+
+
+                 @endauth
+
+                 @guest
+                
                  <li class="naviten">
                    <a href="/login" class="nav-link">Entrar</a>
                  </li>
@@ -61,13 +85,13 @@
                     <a href="/register" class="nav-link">Cadastrar</a>
                  </li>
 
-                 <li class="naviten">
-                    <a href="/contatos" class="nav-link">Contatos</a>
-                 </li>
+                 @endguest
 
-                 <li class="naviten">
-                    <a href="/produtos" class="nav-link">Produtos</a>
-                 </li>
+
+
+
+
+               
 
                  
              

@@ -688,8 +688,9 @@ CONECTANDO A ABSES DE DADOS
         4 - npm install 
         5 - npm run dev
 
-      esses comandos em sequencia instalam uma serie de recuroro para construir o sistema de login 
+      esses comandos em sequencia instalam uma serie de recursos para construir o sistema de login 
       //resovi o bucho da interface de login eliminando a diretiva @vite e colocando essas duas linhas no app.blade.php 
+
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <script src="{{ asset('js/app.js') }}" defer></script>
         link solução do problema
@@ -697,6 +698,79 @@ CONECTANDO A ABSES DE DADOS
         https://stackoverflow.com/questions/73180945/jetstream-css-and-js-not-working-and-showing-viteresources-css-app-css-re
 
         -----------------------------------------------------------------------------------------------------
+
+        USANDO A AUTENTICAÇÃO PARA AUTENTICAR 
+
+         Com os passos que foram feitos acima eu ja tenho como criar um usuario e logar usando ele mas isso precisa ser implemntado 
+         no sistema a primeira etapa é modificar a interface, se o cliente estiver autenticado dois elementos não precisam aparecer
+         para isso eu coloco os dois dentro da diretiva @guest, essa diretiva faz um fluxo de decisão que verifica se o usuario esta 
+         logado  ou não está noi caso abaixo se o susuario estiver logado nmão vao aparecer os links de entrar e nem o de cadastrar 
+         por motivos obvios.  
+
+
+         
+                 @guest
+                                 
+
+                 <li class="naviten">
+                   <a href="/login" class="nav-link">Entrar</a>
+                 </li>
+
+                 <li class="naviten">
+                    <a href="/register" class="nav-link">Cadastrar</a>
+                 </li>
+
+                 @endguest  
+
+
+
+          A questão do logout para deslogar o cliente usa-se a diretiva @auth onde ele lé autenticação e usa ela  
+          e quando ningem acionar o link que leva para o logout o cliente fica conectado, a diferença do logou e que 
+          para sair isso tem que ser avisado ao framework que é em php então nesse caso eu uso um formalario para mandar
+          a informeção via POST como pode ser visto no link sair, esse link opnta pra função logout e para que ele não va para outro lugar 
+          eu executro uma função js prevent defalt para ele acionar a função do framwor sem sair da pagina ou abrir outra pagina
+          porque nesse caso eu so quero quie ele libere o cliente.
+
+
+            @auth
+                 <li class="naviten">
+                   <a href="/dashboard" class="nav-link">Meus eventos</a>
+                 </li>
+
+                 <li class="naviten">
+                   <form action="/logout" method="POST">
+                      @csrf
+                      <a 
+                         href="/logout"
+                         class="nav-link"
+                         onclick="event.preventDefault(); this.closest('form').submit();"        
+                        >Sair</a>
+                   </form>
+                 </li> 
+
+            @endauth
+
+            EXPLICANDO A FUNÇÃO DO ONCLICK 
+              
+               O atributo onlick nesse caso vai acionar duas funções uma e a event prevent default para o link não fazer oque 
+               ele faz normalemente, assim ao ser acionado o link vai fazer oque eu disser no caso eu chamo uma segunda função 
+               que pega o formaulario mais proximo que  e esse que o link esta dentro e executa um submit acionando o envio dele 
+               via post ou seja ao inves do link nos levar a outra pagina ele da um submit no formulario.  
+
+
+             onclick="event.preventDefault(); this.closest('form').submit();"
+             
+             final da aula 22 
+             -----------------------------------------------------------------------------------------------------------------------------
+
+
+
+         
+
+
+
+
+
 
 
       
