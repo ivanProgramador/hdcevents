@@ -27,14 +27,7 @@ Route::post('/events',[ EventController::class, 'store']);
 
 Route::get('/contatos',[ EventController::class, 'contatos']);
 
+Route::get('/dashboard',[EventController::class, 'dashboard'])->middleware('auth');
 
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
+
