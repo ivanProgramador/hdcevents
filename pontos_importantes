@@ -763,6 +763,119 @@ CONECTANDO A ABSES DE DADOS
              final da aula 22 
              -----------------------------------------------------------------------------------------------------------------------------
 
+             REALACIONAMENTO ENTRE TABELAS NO LARAVEL 
+
+              O objetivo do relacionamento entre tabelas nesse caso como setrasta de um sistema de eventos e possibilitar que um usuario 
+              de fato seja dono de um ou mais eventos dentrod o sistema é um tipoo de relação de 1 para muitos.
+
+              O primeiro passo consiste em adcionar o id do usuario como um, dos campos da tabela eventos astraves de um comando de migration
+
+              php artisan make:migration add_user_id_to_events_table
+
+              A principal diferença entre essa coluna e uma colunas normal e que ela vai abrigar um chave estrangeira e isso precisa ser informado 
+              na migration, tanto tem que ter um jeto de adicionar e descartar esse campo, mas caso ocorra dele precisar ser deletado o usuario 
+              associado a ele tem que ir junto pra não ficar um cliente sem id dentro da base. então a migration fica assim:
+
+
+                         <?php
+                              use Illuminate\Database\Migrations\Migration;
+                              use Illuminate\Database\Schema\Blueprint;
+                              use Illuminate\Support\Facades\Schema;
+
+                              class AddUserIdToEventsTable extends Migration
+                              {
+                                 /**
+                                 * Run the migrations.
+                                 *
+                                 * @return void
+                                 */
+                                 public function up()
+                                 {
+                                    Schema::table('events', function (Blueprint $table) {
+                                          $table->foreignId('user_id')->constrained();
+
+                                    });
+                                 }
+
+                                 /**
+                                 * Reverse the migrations.
+                                 *
+                                 * @return void
+                                 */
+                                 public function down()
+                                 {
+                                    Schema::table('events', function (Blueprint $table) {
+                                       
+                                          $table->foreignId('user_id')
+                                          ->constrained()
+                                          ->onDelete('cascade');
+                                          
+                                    });
+                                 }
+                              }
+
+
+                      Migration pronta agora temos que preparar o model, no model tem que criar uma função chamada user 
+                      ela não recebe parametros no entanto ela liga o susurio ao model usando a função belongsTo que pertentence
+                      ao proprio objeto usuario.   
+
+                      public function user(){
+
+                              return $this->belongsTo('App\Models\User');
+                     }
+
+                     agora dentro do model user aqui usando a função publica evets dentro de um model usuario eu aviso 
+                     que toda vez que um eventos chamkar essa função ele vai saber que um ususario tem ou pode ter varios 
+                     eventos.dessa forma tanto o usuario sabe que pode ter varios eventos quanto o evento sabe que  petence
+                     a um usuario
+
+                     public function events(){
+
+                             return $this->hasMany('App/Models/Events');
+                       }
+
+                     isso vai ajudar a saber quais os eventos pertancem a qual usuario e qual usuario e dono de qual evento.
+                     quando a migration for rodada temn que ser a migration fresh senão ele vai dar um erro porque estamos adicionando um campo 
+                     que precisa ter um referencia.
+
+
+                     o proximo passo e pegar op usuario logado la no controller não adianta ter o campo de id se ele não for preenchido 
+                     isso acontece por meio do controller essa duas linhas ficam de ntro da função styore responsavel pela gravação, a primeira 
+                     linha chama função auth() que tem o objeto usuarios dentro dela e puxa somente o oibjeto usuario. e coloca dentro da variavel 
+                     user, na segunda linha eu chamo o objeto evento e pego del o atributo user_id e coloco no atributo usar id do objeto, preenchendo o campo 
+                     dentro da base de dados assim eu sei quem e que esta logado.     
+
+                       $user = auth()->user();
+                       $event->user_id = $user_id;
+
+                     para evitar que algum grave um evento sem estar logado tem que ir la na rota e adicionar  a função que vai acontecer no 
+                     meio termo entre o cliente clicar e receber a pagina, no caso eu coloquei pra executar no middleware a função auth que vai checar 
+                     se o susrio realmente esta logado. essa alteração faz com que toda vez que o cliente clicar em criar eventos ele seja enviado a 
+                     uma tela de login no sistema
+
+                     Route::get('/events/create',[ EventController::class, 'create'])->middleware('auth');
+
+                     
+
+
+
+
+
+                      
+                     
+
+
+
+
+
+
+                     
+
+
+  
+
+
+
 
 
          
