@@ -855,7 +855,39 @@ CONECTANDO A ABSES DE DADOS
 
                      Route::get('/events/create',[ EventController::class, 'create'])->middleware('auth');
 
-                     
+                     ---------------------------------------------------------------------------------------------------------------------------------
+                     MOSTRANDO OS DADOS DO USUARIO LOGADO NA VIEW
+
+                     O primeiro passo e importar o model user para dentro do controller para que eu possa puxar a função where e todos os atri0butos de um usuario 
+
+                     use App\Models\User;  
+
+                     O segundo passo e colçocar uma variavel que vai receber o resultado da função where que agora pode ser usada dentro da função show, no caso 
+                     a função where vai pegar o atributo do user_id do evento para fazer a consulta a função first serve para ele pagar o primeiro que ele encontar 
+                     na base de dados com o id recebido pela consulta isso evita dele fazer uma busaca em todo od banco de dados pre ver se tem mais algum usuario 
+                     com esse id, e depois eu uso a função toArray() pra ele transformar todos os dados do objeto que ele achar em um array pra eu poder acessar 
+                     cada um dos indices. 
+
+                     $eventOwner = User::where('id', $event->user_id)->first()->toArray();
+
+                     isso é suficiente pra pegar os dados, agora o proximo passo e enviar esses dados pra view agora e so ir na view e puxar os atributos
+
+                      return view('events.show',['event' => $event, 'eventOwner' => $eventOwner ]); 
+
+                     como eu pedi pra ele converter pra array então eu pego os dados pelo indice 
+
+                       <p class="event-onwer"><ion-icon name="star-outline" ></ion-icon>{{ $eventOwner['name'] }}</p>
+
+                      --------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
 
 
 
