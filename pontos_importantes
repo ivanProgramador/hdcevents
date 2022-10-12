@@ -883,7 +883,56 @@ CONECTANDO A ABSES DE DADOS
                       CRIANDO UMA DASHBOARD PARA O USUARIO 
                       
                       Dentro da pasta porfile existe a view dashorda pra onde o sistema manda por default o usuarios logado so que  
-                      ao inves de usar uma dash board ja criada pelo jetream eu vou fazer uma propria apórveiutando o poroprio arquivo
+                      ao inves de usar uma dash board ja criada pelo jetsream eu vou fazer uma propria aproveiutando o poroprio arquivo
+                      primeiro foi criada um rota do tipo get apontando para o controller fazendo referencia a uma função chamada dashboard,
+                      nessa função eu peguei os dados do login usando a função auth() depois usandop usar pra pegar o usuarioe atribui esse valor 
+                      a variavel $user depois peguei do ubjeto usuario os eventos e coloquei na veriavel $events depois eu chameia a view dashboard 
+                      que eu copiei o aruivo da pasta porfile pra dentro da pasta events por isso eu to chamando a dasboard de dentor da pasta events 
+                      de depois passei o valor da varivel events junto com a view dashboard pela rota, como eu estou pegando o susrio logado como referencia 
+                      todos os ventosd contidos na events ja são pétencentes ao ususario que esta logado.       
+
+                      public function dashboard(){
+
+                           $user = auth()->user();
+
+                           $events = $user->events;
+
+                           return view('events.dashboard',['events' => $events]);
+
+                       } 
+
+                       ------------------------------------------------------------------------------------------------------------
+                  DELETANDO EVENTOS
+
+                    A primeira coisa a ser feita e criar a rota embora ativodade dessa função seja deletar o nome padrão para ser usado 
+                    no laravel para esse tipo de função é Destroy.
+
+                    Route::delete('/delete/{id}',[EventController::class, 'destroy']); 
+
+                    O proximo passo e criar essa função la no controller recebedo o paramentro id que vem pela rota ela recebe o id
+                    a função que vem do model Event executa o metodo de busca findOrFail para achar o id depois que ele acha ele executa 
+                    o delete. isso e suficiente para apagar o evento. e pdois eu redirecionao o cliente de volta apara a dashboard junto com a mensagem
+
+                    
+                   public function destroy($id){
+
+                        Event::findOrFail($id)->delete();
+
+                        return redirect("/dashboard")->with('msg', 'Evento excluido com sucesso !');
+
+                  }
+
+                  
+
+
+
+
+
+
+
+
+
+
 
                       
                                                               

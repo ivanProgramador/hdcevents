@@ -29,5 +29,7 @@ Route::get('/contatos',[ EventController::class, 'contatos']);
 
 Route::get('/dashboard',[EventController::class, 'dashboard'])->middleware('auth');
 
+Route::delete('/events/{id}',[EventController::class, 'destroy']);
+
 
 
