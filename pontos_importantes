@@ -921,8 +921,74 @@ CONECTANDO A ABSES DE DADOS
                         return redirect("/dashboard")->with('msg', 'Evento excluido com sucesso !');
 
                   }
+                  ---------------------------------------------------------------------------------------------------------------------------
+                  EDITANDO UM REGISTRO 
+
+                  O primeiro passo é adicionar um as rotas a primeira leva a pagina de edição a segunda aciona a função update  
+
+                  Route::get('/events/{id}',[EventController::class, 'edit'])->middleware('auth');
+                  Route::put('/events/update/{id}',[EventController::class, 'update'])->middleware('auth');
+                  
+                  O segundo passo e colocar a função publica edit la no controller pra rota poder acessar ela, para que essa função saiba que evento ela vai editar 
+                  ela recebe o id como parametro. a função edit vai pegar os dados para preencher o formulario de edição com os dados atuais 
+
+                              public function edit($id){
+
+                                 $event = Event::findOrFail($id);
+
+                                 return view('events.edit', ['event' => $event ]);       
+
+                              }
+
+                  a função update faz a requisição baseada no id que vai chegar pra ela pela rota, a avariavel $data vai armazenar tudo que vier na requisição 
+                  abaixop eu uso a mesma logica pra validar se esta vindo um aruivo de imagem valido deposi da checagem eu atibuo o indice imagem do array data 
+                  ao nome da imagem, depois eu uso o metodo findOrFail() do Event para fazer uma busca pelo id e ataualizar todos os dados contidos na variavel $data
+                  deposi eu redirecioono o cliente pra dashboard.  
+
+                           public function update(Request $request){
+
+                                 $data = $request->all();
+
+                                 // Image Upload
+                                       if($request->hasFile('image') && $request->file('image')->isValid()) {
+
+                                          $requestImage = $request->image;
+
+                                          $extension = $requestImage->extension();
+
+                                          $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
+
+                                          $requestImage->move(public_path('img/events'), $imageName);
+
+                                          $data['image'] = $imageName;
+
+                                    }
+
+
+
+
+                                 Event::findOrFail($request->id)->update($data);
+
+                                 return redirect("/dashboard")->with('msg', 'Evento editado com sucesso !');
+                                    
+                                 
+                           }
+
+                           IMPÓRTANTE LEBRAR 
+                           1 - NO MODEL EVENT TEM UMA RETRÇÃO DE SEGURANÇA QUE SO DA PRA PASSAR SE COLOCAR ESSA LINHA DE CODIGO 
+                               NESSA VARIVEL FICAM SO AS COISAS QUE TEM PREMISSÃO PRA MANDAR OA DADOS COMO O ARRAY TA VAZIO ENTÃO TO LÇIBERANDO TODOS OS 
+                               DADOS QUE VIEREM DO UPDATE  
+
+                               protected $guarded =[];
+
+                ------------------------------------------------------------------------------------------------------------------------
+                               
+                           
 
                   
+                  
+
+
 
 
 
