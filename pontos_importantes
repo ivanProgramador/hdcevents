@@ -1056,13 +1056,86 @@ CONECTANDO A ABSES DE DADOS
                      se der erro de dados invalido olha se não esqueceu de colocar chaves duplas 
                      ------------------------------------------------------------------------------------------------------------------
 
-                     MOSTRANDO NA DASHBOARD  
+                     MOSTRANDO NA DASHBOARD EVENTOS QUE O USUARIO LOGADO PARTICIPA
 
                      ir no controller na função dashboard chamar a veriavel e mandar o valor dela pela rota 
 
                             $eventsAsParticipant = $events-> eventAsparticipant; 
 
                             return view('events.dashboard',['events' => $events, 'eventasparticipant'=> $eventsAsParticipant]); 
+                     
+                     vai na view dasboard copia a tabela embaixo da tabela existente e faz o foreach nela 
+                      ----------------------------------------------------------------------------------------------------------------
+
+                      REMOVENDO A PRESENCA DO USUARIO DE UM EVENTO
+
+                      criar rota 
+
+                       Route::delete('/events/leave/{id}',[EventController::class, 'leaveEvent'])->middleware('auth');
+
+                     cria função no controller 
+
+                       public function leaveEvent($id){
+
+                              $user = auth()->user();
+
+                              $user->eventsAsParticipant()->detach($id);
+
+                              $event = Event::findOrFail($id);
+
+                              return redirect('/dashboard')->with('msg', 'você saiu com sucesso do evento: '.$event->title);
+
+                              
+                           }
+
+
+                     vai na view e cria o forma que chama ela  
+
+                       <form action="/events/leave/{{ $event->id}}" method="post">
+                                        @csrf
+                                        @method("DELETE")
+                                        <button type="submit" class="btn btn-danger delete-btn">
+                                          <ion-icon name="trash-outline"></ion-icon>
+                                          Sair do evento
+                                        </button>
+
+                     -----------------------------------------------------------------------------------------------------------------
+
+                     um bug que fazia o cliente participar varia vezes de um unico evento foi corrigido  alterando a função show
+                     no caso ela pega o id do ususario autenticado e compara copm o id do evento se o cliente estiver ligado ao evento
+                     na tabela essa função manda uma verivel com o valor true e oculta o botão participar la na view, pra eviotar que ele confirme 
+                     presença mais de u9ma vez no mesmo evento. 
+
+                                                         
+                                 public function show($id){
+                                    
+                                    $event = Event::findOrFail($id);
+
+                                    $user = auth()->user();
+                                    $hasUserJoined = false;
+
+                                    if($user){
+
+                                       $userEvents = $user->eventsAsParticipant->toArray();
+
+                                       foreach($userEvents as $userEvent){
+
+                                          if($userEvent['id'] == $id){
+
+                                             $hasUserJoined = true;
+
+
+                                          }
+
+                                       }
+
+                                    }
+
+                     -----------------------------------------------------------------------------------------------------------------
+
+               
+                     
+
 
                      
 
