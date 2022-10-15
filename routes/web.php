@@ -35,6 +35,10 @@ Route::get('/events/edit/{id}',[EventController::class, 'edit'])->middleware('au
 
 Route::put('/events/update/{id}',[EventController::class, 'update'])->middleware('auth');
 
+Route::post('/events/join/{id}',[EventController::class, 'joinEvent'])->middleware('auth');
+
+
+
 
 
 

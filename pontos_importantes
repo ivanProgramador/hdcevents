@@ -982,6 +982,91 @@ CONECTANDO A ABSES DE DADOS
                                protected $guarded =[];
 
                 ------------------------------------------------------------------------------------------------------------------------
+
+                CRIANDO UM RELAÇÃO DE MUITOS PARA MUITOS 
+
+                  O primeiro passao e fazer um migration que cria uma tabela que vai relacionar usuarios e eventos no caso a nomenclatura 
+                  deve ser criada na ordem alfabetica.e vem primeiro que u então event_user. essa tabela vai ser ponsavel por ligar o id 
+                  do evento ao id do usuario 
+
+                  php artisan make:migration create_event_user_table
+
+                  configurando o relacionamento na migration 
+
+                    $table->foreignId('event_id')->constrained();
+                    $table->foreignId('user_id')->constrained();
+
+                  O proximo passo e no model Event tem que criar uma função que aponta para o model usuarios e virse e versa 
+                  MODEL EVENT
+                  ---------------------------------------------
+                    public function user(){
+
+                        return $this->belongsToMany('App\Models\User');
+                     }
+
+
+                  MODEL USER
+                  ------------------------------------------
+                  public function eventsAsParticipant(){
+
+                        return $this->belongsToMany('App\Models\Event');
+                     }
+
+                  Essas funções vão ligar um model ao outro 
+
+                  LIGANDO UM USUARIO A UM EVENTO PELO BOTÃO PARTICIPAR 
+
+                Primeiro tem que criar a rota para que o botão confirmar presença mande os ids por ela 
+
+                Route::post('/events/join/{id}',[EventController::class, 'joinEvent'])->middleware('auth');
+
+                O proximo passo e construir a função pra onde essa rota aponta dentro do controller 
+                                     
+                 -------------------------------------------------------------------------------------------
+                 essa função recebe o id como parametro que vem pela rota, depois ela pega o usuario autenticado que vvem da função auth 
+                 depois ela seleciona a função eventAsParticipant() que liga o ususario ao evento de ela usa a função attach() para anexar o id 
+                 eo campo da tabela depois ela faz a buca pelo is do evento usando a função findOrFail() do model Event() pra preencher na tebela 
+                 e unir os dois, depois ela redireciona o cliente para a dashboard com a mensagem de feedback e o titulo do evento. 
+
+                  public function joinEvent($id){
+
+                        $user = auth()->user();
+
+                        $user->eventAsParticipant()->attach($id);
+
+                        $event = Event::findOrFail($id);
+
+                        return redirect('/dashboard')->with('msg', 'sua presença está confirmada no evento'.$event->title);
+                   }
+
+                   la na view show tem que configurar o botão 
+
+                      <form action="/events/join/{$event->id}" method="POST">
+
+                        @csrf
+                        
+                              <a href="/events/join/{$event->id}" class="btn btn-primary" id="event-submit" 
+                                 onclick="event.preventDefault(); this.closest('form').submit();"
+                              > Confirmar presença</a>
+                        
+                        
+                        </form>
+
+
+
+
+
+
+
+
+
+
+                     
+
+                  
+
+
+
                                
                            
 
