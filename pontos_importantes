@@ -985,7 +985,7 @@ CONECTANDO A ABSES DE DADOS
 
                 CRIANDO UM RELAÇÃO DE MUITOS PARA MUITOS 
 
-                  O primeiro passao e fazer um migration que cria uma tabela que vai relacionar usuarios e eventos no caso a nomenclatura 
+                  O primeiro passo e fazer um migration que cria uma tabela que vai relacionar usuarios e eventos no caso a nomenclatura 
                   deve ser criada na ordem alfabetica.e vem primeiro que u então event_user. essa tabela vai ser ponsavel por ligar o id 
                   do evento ao id do usuario 
 
@@ -1051,6 +1051,23 @@ CONECTANDO A ABSES DE DADOS
                         
                         
                         </form>
+
+
+                     se der erro de dados invalido olha se não esqueceu de colocar chaves duplas 
+                     ------------------------------------------------------------------------------------------------------------------
+
+                     MOSTRANDO NA DASHBOARD  
+
+                     ir no controller na função dashboard chamar a veriavel e mandar o valor dela pela rota 
+
+                            $eventsAsParticipant = $events-> eventAsparticipant; 
+
+                            return view('events.dashboard',['events' => $events, 'eventasparticipant'=> $eventsAsParticipant]); 
+
+                     
+
+
+               
 
 
 
